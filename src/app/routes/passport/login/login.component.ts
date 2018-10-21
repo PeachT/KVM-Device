@@ -12,6 +12,7 @@ import {
 import { ReuseTabService } from '@delon/abc';
 import { environment } from '@env/environment';
 import { StartupService } from '@core/startup/startup.service';
+import { DB, DbService } from 'app/db/db.service';
 
 @Component({
   selector: 'passport-login',
@@ -25,6 +26,7 @@ export class UserLoginComponent implements OnDestroy {
     name: '',
     password: ''
   };
+  db: DB;
 
   constructor(
     fb: FormBuilder,
@@ -33,33 +35,55 @@ export class UserLoginComponent implements OnDestroy {
     private modalSrv: NzModalService,
     private settingsService: SettingsService,
     private socialService: SocialService,
+    private settingService: SettingsService,
     @Optional()
     @Inject(ReuseTabService)
     private reuseTabService: ReuseTabService,
     @Inject(DA_SERVICE_TOKEN) private tokenService: TokenService,
     private startupSrv: StartupService,
-  ) {}
+    private _db: DbService,
+  ) {
+    this.db = _db.db;
+  }
 
   // endregion
 
   submit() {
     this.loading = true;
-    if (this.user.name === 'admin' && this.user.password === '888888') {
-      // 清空路由复用信息
-      this.reuseTabService.clear();
-      // 设置Token信息
-      this.tokenService.set({
-        token: '123456789',
-        name: this.user.name,
-        email: `cipchk@qq.com`,
-        id: 10000,
-        time: +new Date(),
-      });
-      // 重新获取 StartupService 内容，若其包括 User 有关的信息的话
-      // this.startupSrv.load().then(() => this.router.navigate(['/']));
-      // 否则直接跳转
-      this.router.navigate(['/']);
-    }
+    this.db.user.filter(a => a.name === this.user.name && a.password === this.user.password).first().then((user) => {
+      console.log(user);
+      this.loading = false;
+      if (user) {
+        // 清空路由复用信息
+        this.reuseTabService.clear();
+        // 设置Token信息
+        this.tokenService.set({
+          token: `${user.id}`,
+          name: this.user.name,
+          email: `cipchk@qq.com`,
+          id: 10000,
+          time: +new Date(),
+          // user: user
+        });
+        // 重新获取 StartupService 内容，若其包括 User 有关的信息的话
+        // this.startupSrv.load().then(() => this.router.navigate(['/']));
+        // 设置用户信息
+        const setUser: any = {
+          name: user.name,
+          avatar: user.avatar,
+          authority: user.authority,
+          token: `${user.id}`
+        };
+        this.settingService.setUser(setUser);
+        // 否则直接跳转
+        this.msg.success('登录成功🙂');
+        this.router.navigate(['/']);
+      } else {
+        this.msg.error('登录失败😔');
+      }
+    }).catch(() => {
+      this.msg.error('获取数据出错了！😔');
+    });
   }
 
   // endregion

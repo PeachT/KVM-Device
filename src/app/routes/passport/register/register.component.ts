@@ -7,6 +7,8 @@ import {
   FormControl,
 } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
+import { DbService, tableNames } from 'app/db/db.service';
+import { User } from 'app/db/models/user';
 
 @Component({
   selector: 'passport-register',
@@ -22,14 +24,22 @@ export class UserRegisterComponent implements OnDestroy {
 
   constructor(
     private router: Router,
+    private _db: DbService,
   ) {
   }
   submit() {
     this.loading = true;
-    if (this.user.name === 'admin' && this.user.password === '888888') {
-      // 否则直接跳转
-      this.router.navigate(['/']);
-    }
+    const user: User = {
+      name: this.user.name,
+      password: this.user.password,
+      authority: 9
+    };
+    this._db.post(tableNames.user, user, (u) => u.name === user.name).subscribe((res) => {
+      console.log(res);
+      if (res) {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   ngOnDestroy(): void {
