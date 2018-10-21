@@ -1,0 +1,13 @@
+<form nz-form #f="ngForm" se-container nzLayout="vertical">
+  <se label="用户名" required>
+    <input type="text" nz-input [(ngModel)]="user.name" name="name" nzSize="large" placeholder="admin" required>
+  </se>
+  <se label="密码" required>
+    <input type="password" nz-input [(ngModel)]="user.password" name="password" nzSize="large" placeholder="888888"
+      required>
+  </se>
+  <se>
+    <button nz-button nzType="primary" style="width: 100%;" nzSize="large" [disabled]="f.invalid" [nzLoading]="loading"
+      (click)="submit()">登 录</button>
+  </se>
+</form>
