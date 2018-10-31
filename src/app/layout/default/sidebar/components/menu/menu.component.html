@@ -1,0 +1,46 @@
+<div class="demo-infinite-container"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+  [scrollWindow]="false"
+  style="height: 100%; padding: 0;">
+  <nz-list [nzDataSource]="app.mneus" [nzRenderItem]="item">
+    <ng-template #item let-item >
+      <nz-list-item
+        *ngIf="!item.children || (item.children.length && (!title || title === item.title))"
+        (click)="menu1(item.children, item.title)">
+        <nz-list-item-meta
+            [nzTitle]="nzTitle"
+            nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png">
+            <ng-template #nzTitle>
+              {{item.title}}
+            </ng-template>
+        </nz-list-item-meta>
+      </nz-list-item>
+    </ng-template>
+    <nz-spin *ngIf="loading && hasMore" class="demo-loading"></nz-spin>
+  </nz-list>
+  <div *ngIf="childrens"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+    [scrollWindow]="false"
+    style="height: auto; padding: 0 0 0 10px; border-top: 1px solid #e8e8e8;">
+    <nz-list [nzDataSource]="childrens" [nzRenderItem]="item1">
+      <ng-template #item1 let-item>
+        <nz-list-item>
+          <nz-list-item-meta
+              [nzTitle]="nzTitle"
+              nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png">
+              <ng-template #nzTitle>
+                {{item.title}}
+              </ng-template>
+          </nz-list-item-meta>
+        </nz-list-item>
+      </ng-template>
+      <nz-spin *ngIf="loading && hasMore" class="demo-loading"></nz-spin>
+    </nz-list>
+  </div>
+</div>

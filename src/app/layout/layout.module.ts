@@ -12,6 +12,7 @@ import { HeaderIconComponent } from './default/header/components/icon.component'
 import { HeaderFullScreenComponent } from './default/header/components/fullscreen.component';
 import { HeaderStorageComponent } from './default/header/components/storage.component';
 import { HeaderUserComponent } from './default/header/components/user.component';
+import { HeaderMenuComponent } from './default/header/components/menu.component';
 
 import { SettingDrawerComponent } from './default/setting-drawer/setting-drawer.component';
 import { SettingDrawerItemComponent } from './default/setting-drawer/setting-drawer-item.component';
@@ -33,22 +34,26 @@ const HEADERCOMPONENTS = [
   HeaderIconComponent,
   HeaderFullScreenComponent,
   HeaderStorageComponent,
-  HeaderUserComponent
+  HeaderUserComponent,
+  HeaderMenuComponent
 ];
 
 // passport
 import { LayoutPassportComponent } from './passport/passport.component';
+import { MenuComponent } from './default/sidebar/components/menu/menu.component';
 const PASSPORT = [
   LayoutPassportComponent
 ];
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
-  imports: [SharedModule],
+  imports: [SharedModule, InfiniteScrollModule],
   entryComponents: SETTINGDRAWER,
   declarations: [
     ...COMPONENTS,
     ...HEADERCOMPONENTS,
-    ...PASSPORT
+    ...PASSPORT,
+    MenuComponent,
   ],
   exports: [
     ...COMPONENTS,

@@ -16,6 +16,7 @@ import {
   RouteConfigLoadStart,
   NavigationError,
   NavigationCancel,
+  ActivatedRoute,
 } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { ScrollService, MenuService, SettingsService } from '@delon/theme';
@@ -25,6 +26,7 @@ import { SettingDrawerComponent } from './setting-drawer/setting-drawer.componen
 import { Subscription } from 'rxjs';
 import { updateHostClass } from '@delon/util';
 import { DOCUMENT } from '@angular/common';
+import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'layout-default',
@@ -51,6 +53,8 @@ export class LayoutDefaultComponent
     private el: ElementRef,
     private renderer: Renderer2,
     @Inject(DOCUMENT) private doc: any,
+    private app: AppService,
+    protected route: ActivatedRoute
   ) {
     // scroll to top in change page
     router.events.subscribe(evt => {
@@ -66,6 +70,9 @@ export class LayoutDefaultComponent
       }
       if (!(evt instanceof NavigationEnd)) {
         return;
+      } else {
+        this.app.nowUrl = `/${evt.url.split('/')[1]}`;
+        console.log('跳转成功！', evt.url.split('/'));
       }
       setTimeout(() => {
         scroll.scrollToTop();

@@ -12,15 +12,22 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
       {{settings.user.name}}
     </div>
     <div nz-menu class="width-sm">
-      <div nz-menu-item routerLink="/pro/account/center"><i class="anticon anticon-user mr-sm"></i>
-        {{ 'menu.account.center' }}
+      <div nz-menu-item routerLink="/lock">
+        <i nz-icon type="lock" theme="outline"></i>
+        锁屏
       </div>
-      <div nz-menu-item routerLink="/pro/account/settings"><i class="anticon anticon-setting mr-sm"></i>
-        {{ 'menu.account.settings' }}
+      <div nz-menu-item (click)="logout()">
+        <i nz-icon type="logout" theme="outline"></i>
+        登出
       </div>
       <li nz-menu-divider></li>
-      <div nz-menu-item (click)="logout()"><i class="anticon anticon-logout mr-sm"></i>
-        {{ 'menu.account.logout' }}
+      <div nz-menu-item routerLink="/lock">
+        <i nz-icon type="reload" theme="outline"></i>
+        重启
+      </div>
+      <div nz-menu-item (click)="logout()">
+        <i nz-icon type="poweroff" theme="outline"></i>
+        关机
       </div>
     </div>
   </nz-dropdown>

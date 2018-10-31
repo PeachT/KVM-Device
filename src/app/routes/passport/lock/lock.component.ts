@@ -30,6 +30,7 @@ export class UserLockComponent {
       console.log('Valid!');
       console.log(this.f.value);
       this.router.navigate(['dashboard']);
+      history.go(-1);
     }
   }
 }

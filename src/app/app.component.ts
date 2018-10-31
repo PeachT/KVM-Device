@@ -34,22 +34,23 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('yuanx');
+    this.db.user.count().then((data) => {
+      console.log('获取用户', data);
+      if (data > 0) {
+        // this.getProject();
+      } else {
+        // this.adminIsVisible = true;
+        this.router.navigate(['/passport/register']);
+      }
+    }).catch((error) => {
+      console.log('数据库错误！！', error);
+    });
     this.router.events
       .pipe(filter(evt => evt instanceof NavigationEnd))
       .subscribe(() => {
         // this.titleSrv.setTitle();
         // this.modalSrv.closeAll();
-        this.db.user.count().then((data) => {
-          console.log('获取用户', data);
-          if (data > 0) {
-            // this.getProject();
-          } else {
-            // this.adminIsVisible = true;
-            this.router.navigate(['/passport/register']);
-          }
-        }).catch((error) => {
-          console.log('数据库错误！！', error);
-        });
       });
   }
 }
