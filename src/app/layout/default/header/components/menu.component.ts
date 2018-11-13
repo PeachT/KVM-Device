@@ -30,7 +30,7 @@ export class HeaderMenuComponent {
     {path: '/user', icon: 'user', title: '用户'},
     {path: '/setting', icon: 'setting', title: '设置'},
     {path: '/manual', icon: 'medium', title: '手动'},
-    {path: '/help000', icon: 'question-circle', title: '帮助'},
+    {path: '/help', icon: 'question-circle', title: '帮助'},
   ];
   taskVisible = false;
 

@@ -45,6 +45,7 @@ const PASSPORT = [
   LayoutPassportComponent
 ];
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TreeMenuComponent } from './default/sidebar/components/tree-menu/tree-menu.component';
 
 @NgModule({
   imports: [SharedModule, InfiniteScrollModule],
@@ -54,6 +55,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     ...HEADERCOMPONENTS,
     ...PASSPORT,
     MenuComponent,
+    TreeMenuComponent,
   ],
   exports: [
     ...COMPONENTS,

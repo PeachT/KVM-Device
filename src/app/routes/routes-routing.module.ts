@@ -55,7 +55,9 @@ const routes: Routes = [
       { path: 'user/:id', loadChildren: './user/user.module#UserModule',
         data: { title: '用户', titleI18n: 'user' } },
       // { path: 'task', loadChildren: './task/task.module#TaskModule', data: { title: '任务', titleI18n: 'task' } },
-      { path: 'task/:id', loadChildren: './task/task.module#TaskModule',
+      { path: 'task/:projectid', loadChildren: './task/task.module#TaskModule',
+        data: { title: '任务', titleI18n: 'task' } },
+      { path: 'task/:projectid/:id', loadChildren: './task/task.module#TaskModule',
         data: { title: '任务', titleI18n: 'task' } },
       // 业务子模块
       // { path: 'widgets', loadChildren: './widgets/widgets.module#WidgetsModule' }

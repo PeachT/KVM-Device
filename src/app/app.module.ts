@@ -69,11 +69,15 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { RoutesModule } from './routes/routes.module';
 import { LayoutModule } from './layout/layout.module';
+import { FileBase64Component } from './sf-widgets/file-base64/file-base64.component';
+import { WidgetRegistry } from '@delon/form';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FileBase64Component
   ],
+  entryComponents: [ FileBase64Component ],
   imports: [
     NgxElectronModule,
     BrowserModule,
@@ -94,4 +98,8 @@ import { LayoutModule } from './layout/layout.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(widgetRegistry: WidgetRegistry) {
+    widgetRegistry.register(FileBase64Component.KEY, FileBase64Component);
+  }
+}

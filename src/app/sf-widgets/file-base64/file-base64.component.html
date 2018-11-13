@@ -1,0 +1,12 @@
+<sf-item-wrap [id]="id" [schema]="schema" [ui]="ui" [showError]="showError" [error]="error" [showTitle]="schema.title">
+  <!-- 开始自定义控件区域 -->
+  <!-- <tinymce
+      [ngModel]="value"
+      (ngModelChange)="change($event)"
+      [config]="config"
+      [loading]="loading">
+    </tinymce> -->
+    <img [src]="value" alt="" srcset="">
+    <input type="file" name="img" (change)="upFile($event)">
+  <!-- 结束自定义控件区域 -->
+</sf-item-wrap>

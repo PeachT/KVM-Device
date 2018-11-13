@@ -1,0 +1,49 @@
+<!-- <div #d class="tree-menu demo-infinite-container" [ngStyle]="{'max-height': height}" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="10"
+  (scrolled)="onScroll()" [scrollWindow]="false" >
+  <nz-list [nzDataSource]="menus" [nzRenderItem]="item">
+    <ng-template #item let-item>
+      <nz-list-item *ngIf="(!title || title === item.title) || hidden">
+          <nz-list-item-meta (click)="menu1(item)" [nzTitle]="nzTitle" nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png">
+            <ng-template #nzTitle>
+              {{item.title}}
+            </ng-template>
+          </nz-list-item-meta>
+          <app-tree-menu style="height: auto; padding: 0 0 0 10px; border-top: 1px solid #e8e8e8;" *ngIf="item.children && title === item.title"
+          [menus]="item.children" [ikey]="ikey + 1"></app-tree-menu>
+        </nz-list-item>
+      </ng-template>
+    <nz-spin *ngIf="loading && hasMore" class="demo-loading"></nz-spin>
+  </nz-list>
+</div> -->
+<div #s class="main-scroll" (scroll)="scroll($event)">
+  <ul> 
+    <li *ngFor="let item of menus" [ngStyle]="{'max-height': (app.menuAction[ikey] === item.link) && item.childrenHidden ? '100%':'auto'}" >
+      <div class="item-dom" *ngIf="(!app.menuAction[ikey] || app.menuAction[ikey] === item.link) || !item.childrenHidden">
+        <div class="item" [ngClass]="{'bg': app.menuAction[ikey] === item.link && !item.children}">
+          <div class="title" [ngClass]="{'active': app.menuAction[ikey] === item.link}" (click)="menu1(item)">
+            {{ item.title }}
+            <i nz-icon type="up" theme="outline" *ngIf="item.children"></i>
+          </div>
+          <app-tree-menu class="app-tree-menu" *ngIf="item.children && app.menuAction[ikey] === item.link" [menus]="item.children"
+            [ikey]="ikey + 1" [url]="url + '/' + item.link"></app-tree-menu>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<!-- <div #s class="main-scroll" (scroll)="scroll($event)">
+  <ul>
+    <li *ngFor="let item of menus" [ngStyle]="{'max-height': (link === item.link) && !hidden ? '100%':'auto'}" >
+      <div class="item-dom" *ngIf="(!link || link === item.link) || hidden">
+        <div class="item" [ngClass]="{'bg': link === item.link && !item.children}">
+          <div class="title" [ngClass]="{'active': link === item.link}" (click)="menu1(item)">
+            {{ item.title }}
+            <i nz-icon type="up" theme="outline" *ngIf="item.children"></i>
+          </div>
+          <app-tree-menu class="app-tree-menu" *ngIf="item.children && link === item.link" [menus]="item.children"
+            [ikey]="ikey + 1" [url]="url + '/' + item.link"></app-tree-menu>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div> -->

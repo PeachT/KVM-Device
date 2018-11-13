@@ -3,9 +3,12 @@ import { Injectable } from '@angular/core';
 import { User, userIndex } from './models/user';
 import { Observable } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd';
+import { Project, projectIndex } from './models/project';
+import { Menus } from 'app/models/menu';
 
 export enum tableNames {
-  user = 'user'
+  user = 'user',
+  project = 'project'
 }
 
 @Injectable({ providedIn: 'root' })
@@ -25,9 +28,9 @@ export class DbService {
    * @returns {(Observable<boolean | number>)} 失败返回false 成功返回id
    * @memberof DbService
    */
-  public post(tableName: string, saveData: User, inquery: Function): Observable<boolean | number> {
+  public post(tableName: string, saveData: User | Project, inquery: Function): Observable<boolean | number> {
     return new Observable((observer) => {
-      this.db.user.filter(a => inquery(a)).first().then((oldData) => {
+      this.db[tableName].filter(a => inquery(a)).first().then((oldData) => {
         console.log(tableName, saveData);
         if (oldData) {
           if (!(oldData.id === saveData.id)) {
@@ -36,7 +39,7 @@ export class DbService {
           }
         }
         if (saveData.id) {
-          this.db.user.update(saveData.id, saveData).then((updated) => {
+          this.db[tableName].update(saveData.id, saveData).then((updated) => {
             if (updated) {
               observer.next(saveData.id);
               this.msg.success('更新成功🙂');
@@ -49,7 +52,7 @@ export class DbService {
           });
         } else {
           saveData.id = new Date().getTime();
-            this.db.user.add(saveData).then(() => {
+            this.db[tableName].add(saveData).then(() => {
               observer.next(saveData.id);
               this.msg.success('添加成功🙂');
             }).catch(() => {
@@ -60,16 +63,28 @@ export class DbService {
       });
     });
   }
+  public async getByid(tableName: string, id: string | number): Promise<User | Project> {
+    return await this.db[tableName].get(Number(id));
+  }
+  public async getAll(tableName: string): Promise<Menus[]> {
+    const menu: Menus[] = [];
+    await this.db[tableName].each(d => {
+      menu.push({title: d.name, link: String(d.id)});
+    });
+    return menu;
+  }
 }
 
 
 export class DB extends Dexie {
   user!: Dexie.Table<User, number>;
+  project!: Dexie.Table<Project, number>;
 
   constructor() {
     super('KVM');
     this.version(1).stores({
       user: userIndex,
+      project: projectIndex,
     });
     this.open();
   }

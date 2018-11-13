@@ -20,7 +20,7 @@ export interface Project  {
   /** 监理 */
   supervisions: Array<Supervision>;
   /** 钢绞线 */
-  steelStrands: Array<SteelStrand>;
+  // steelStrands: Array<SteelStrand>;
 }
 export interface Supervision {
   /** id */
@@ -52,3 +52,16 @@ export interface SteelStrand {
 /** 项目索引 */
 export const projectIndex = '&id,&name';
 
+export const projectInit: Project = {
+  id: null,
+  name: null,
+  divisionProject: null,
+  constructionUnit: null,
+  subProject: null,
+  unitProject: null,
+  engineeringSite: null,
+  contractSection: null,
+  stationRange: null,
+  supervisions: [],
+  // steelStrands: [],
+};

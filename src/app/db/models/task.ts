@@ -131,3 +131,6 @@ export interface ReturnStartItem {
   mpa: number;
   mm: number;
 }
+
+/** 项目索引 */
+export const tskIndex = '&id,&name';
