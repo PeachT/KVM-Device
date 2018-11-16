@@ -16,7 +16,7 @@
   </nz-list>
 </div> -->
 <div #s class="main-scroll" (scroll)="scroll($event)">
-  <ul> 
+  <ul>
     <li *ngFor="let item of menus" [ngStyle]="{'max-height': (app.menuAction[ikey] === item.link) && item.childrenHidden ? '100%':'auto'}" >
       <div class="item-dom" *ngIf="(!app.menuAction[ikey] || app.menuAction[ikey] === item.link) || !item.childrenHidden">
         <div class="item" [ngClass]="{'bg': app.menuAction[ikey] === item.link && !item.children}">
@@ -31,19 +31,3 @@
     </li>
   </ul>
 </div>
-<!-- <div #s class="main-scroll" (scroll)="scroll($event)">
-  <ul>
-    <li *ngFor="let item of menus" [ngStyle]="{'max-height': (link === item.link) && !hidden ? '100%':'auto'}" >
-      <div class="item-dom" *ngIf="(!link || link === item.link) || hidden">
-        <div class="item" [ngClass]="{'bg': link === item.link && !item.children}">
-          <div class="title" [ngClass]="{'active': link === item.link}" (click)="menu1(item)">
-            {{ item.title }}
-            <i nz-icon type="up" theme="outline" *ngIf="item.children"></i>
-          </div>
-          <app-tree-menu class="app-tree-menu" *ngIf="item.children && link === item.link" [menus]="item.children"
-            [ikey]="ikey + 1" [url]="url + '/' + item.link"></app-tree-menu>
-        </div>
-      </div>
-    </li>
-  </ul>
-</div> -->

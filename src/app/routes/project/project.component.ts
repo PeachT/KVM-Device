@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { SFComponent } from '@delon/form';
 import { Project, projectInit } from 'app/db/models/project';
@@ -36,6 +36,8 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   // steelStrands: Array<SteelStrand>;
   @ViewChild('sf')
     private sf: SFComponent;
+  @ViewChild('dsf')
+    private sfdom: ElementRef;
   schema = {
     properties: {
       id: {
@@ -79,16 +81,6 @@ export class ProjectComponent implements OnInit, AfterViewInit {
         title: '桩号范围',
       },
       supervisions: {
-        // /** id */
-        // id: number;
-        // /** 名称 */
-        // name: string;
-        // /** 联系方式 */
-        // phone: string;
-        // /** 公司名称 */
-        // unit: string;
-        // /** 头像 */
-        // imgbase64: any;
         type: 'array',
         title: '监理',
         maxItems: 4,
@@ -116,7 +108,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
             },
           },
           required: [
-            name,
+            'name',
           ],
           ui: {
             spanLabel: 5,
@@ -141,6 +133,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   layout = 'horizontal';
   edit = false;
   initSuccess = false;
+  data: Project = null;
 
   constructor(
     private msg: NzMessageService,
@@ -166,7 +159,10 @@ export class ProjectComponent implements OnInit, AfterViewInit {
 
   getData(id) {
     this._db.getByid(tableNames.project, id).then(d => {
-      this.add(d as Project);
+      this.data = d as Project;
+      // this.add(this.data);
+      this.formData = this.data;
+      this.edit = false;
     });
   }
   getMenu() {
@@ -190,24 +186,37 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   }
 
   change(value: any) {
-    console.log('formChange', value, this.initSuccess);
+    // console.log('formChange', value, this.initSuccess);
     if (this.initSuccess) {
-      this.edit = true;
+      // this.edit = true;
     }
   }
 
   error(value: any) {
-    console.log('formError', value);
+    // console.log('formError', value);
   }
   cancel() {
+    console.log(this.app.menuAction[0]);
+    if (this.data.id) {
+      this.add(this.data);
+    } else {
+      this.sf.reset();
+    }
     this.edit = false;
   }
   add(data = projectInit) {
-    console.log(this.formData);
+    // console.log(this.formData);
     this.formData = data;
     this.sf.refreshSchema();
     this.edit = true;
   }
+  update() {
+    this.edit = true;
+  }
   delete() {
+  }
+  r() {
+    this.sf.refreshSchema();
+    this.edit = true;
   }
 }
