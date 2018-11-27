@@ -340,68 +340,68 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@delon/abc@^2.0.0-rc.3":
-  version "2.0.0-rc.3"
-  resolved "http://registry.npm.taobao.org/@delon/abc/download/@delon/abc-2.0.0-rc.3.tgz#12e4cea591a7aa679823a7833a40702ee9cf211e"
-  integrity sha1-EuTOpZGnqmeYI6eDOkBwLunPIR4=
+"@delon/abc@^2.0.0":
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/@delon/abc/download/@delon/abc-2.0.0.tgz#5b00d39901f3a53ab6f18093614c11547eb73f33"
+  integrity sha1-WwDTmQHzpTq28YCTYUwRVH63PzM=
   dependencies:
     file-saver "^1.3.3"
     ngx-countdown "^3.0.0"
     tslib "^1.9.0"
 
-"@delon/acl@^2.0.0-rc.3":
-  version "2.0.0-rc.3"
-  resolved "http://registry.npm.taobao.org/@delon/acl/download/@delon/acl-2.0.0-rc.3.tgz#63dd327c6c561dd3fbc19944453623d8312d03dc"
-  integrity sha1-Y90yfGxWHdP7wZlERTYj2DEtA9w=
+"@delon/acl@^2.0.0":
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/@delon/acl/download/@delon/acl-2.0.0.tgz#37270dc690b24014962528b138ea2202a590f16d"
+  integrity sha1-NycNxpCyQBSWJSixOOoiAqWQ8W0=
   dependencies:
     tslib "^1.9.0"
 
-"@delon/auth@^2.0.0-rc.3":
-  version "2.0.0-rc.3"
-  resolved "http://registry.npm.taobao.org/@delon/auth/download/@delon/auth-2.0.0-rc.3.tgz#bdb085c97fc2348a9c5acdeca7fede608e06b5ef"
-  integrity sha1-vbCFyX/CNIqcWs3sp/7eYI4Gte8=
+"@delon/auth@^2.0.0":
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/@delon/auth/download/@delon/auth-2.0.0.tgz#533657cd858374d3a8a5d36c4088f5a34b5a3635"
+  integrity sha1-UzZXzYWDdNOopdNsQIj1o0taNjU=
   dependencies:
     tslib "^1.9.0"
 
-"@delon/cache@^2.0.0-rc.3":
-  version "2.0.0-rc.3"
-  resolved "http://registry.npm.taobao.org/@delon/cache/download/@delon/cache-2.0.0-rc.3.tgz#00315f9c3a403137715aca9f197e6d8c2e1ebe32"
-  integrity sha1-ADFfnDpAMTdxWsqfGX5tjC4evjI=
+"@delon/cache@^2.0.0":
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/@delon/cache/download/@delon/cache-2.0.0.tgz#788787aeee7ba4486afa9590de657e188130c653"
+  integrity sha1-eIeHru57pEhq+pWQ3mV+GIEwxlM=
   dependencies:
     tslib "^1.9.0"
 
-"@delon/chart@^2.0.0-rc.3":
-  version "2.0.0-rc.3"
-  resolved "http://registry.npm.taobao.org/@delon/chart/download/@delon/chart-2.0.0-rc.3.tgz#d4358c6cdb271073af242cdbf3af4e1c011fdb6f"
-  integrity sha1-1DWMbNsnEHOvJCzb869OHAEf228=
+"@delon/chart@^2.0.0":
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/@delon/chart/download/@delon/chart-2.0.0.tgz#1e735237c341d87f0fc07d804d66d7d6dab2e9d9"
+  integrity sha1-HnNSN8NB2H8PwH2ATWbX1tqy6dk=
   dependencies:
     tslib "^1.9.0"
 
-"@delon/form@^2.0.0-rc.3":
-  version "2.0.0-rc.3"
-  resolved "http://registry.npm.taobao.org/@delon/form/download/@delon/form-2.0.0-rc.3.tgz#f8889daf4e3f0f677c64d91419b16464747e3e81"
-  integrity sha1-+Iidr04/D2d8ZNkUGbFkZHR+PoE=
+"@delon/form@^2.0.0":
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/@delon/form/download/@delon/form-2.0.0.tgz#0efed207597356fd25c0aeea683835b9df864766"
+  integrity sha1-Dv7SB1lzVv0lwK7qaDg1ud+GR2Y=
   dependencies:
     tslib "^1.9.0"
 
-"@delon/mock@^2.0.0-rc.3":
-  version "2.0.0-rc.3"
-  resolved "http://registry.npm.taobao.org/@delon/mock/download/@delon/mock-2.0.0-rc.3.tgz#124338a5151f5a0604730d9ddc0ccbe3d3a37ea3"
-  integrity sha1-EkM4pRUfWgYEcw2d3AzL49OjfqM=
+"@delon/mock@^2.0.0":
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/@delon/mock/download/@delon/mock-2.0.0.tgz#1a3831c60176c2a19ee7def3bec95f8f5b82b78b"
+  integrity sha1-GjgxxgF2wqGe597zvslfj1uCt4s=
   dependencies:
     tslib "^1.9.0"
 
-"@delon/theme@^2.0.0-rc.3":
-  version "2.0.0-rc.3"
-  resolved "http://registry.npm.taobao.org/@delon/theme/download/@delon/theme-2.0.0-rc.3.tgz#3abca1982f83d0e15c7d69f31545f0c597798752"
-  integrity sha1-OryhmC+D0OFcfWnzFUXwxZd5h1I=
+"@delon/theme@^2.0.0":
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/@delon/theme/download/@delon/theme-2.0.0.tgz#7ce74e485f51490b98d0a870b18012e8b2598872"
+  integrity sha1-fOdOSF9RSQuY0KhwsYAS6LJZiHI=
   dependencies:
     tslib "^1.9.0"
 
-"@delon/util@^2.0.0-rc.3":
-  version "2.0.0-rc.3"
-  resolved "http://registry.npm.taobao.org/@delon/util/download/@delon/util-2.0.0-rc.3.tgz#e67f41ecdff985f2b00ae094259a799f5cfbaa4d"
-  integrity sha1-5n9B7N/5hfKwCuCUJZp5n1z7qk0=
+"@delon/util@^2.0.0":
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/@delon/util/download/@delon/util-2.0.0.tgz#cb1b4f6de6ac2f404ed9d5f96a80ba79811ed588"
+  integrity sha1-yxtPbeasL0BO2dX5aoC6eYEe1Yg=
   dependencies:
     tslib "^1.9.0"
 
@@ -6044,10 +6044,10 @@ neo-async@^2.5.0:
   resolved "http://registry.npm.taobao.org/neo-async/download/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
   integrity sha1-udFeTXHGdikIZUtRg+04t1M0CDU=
 
-ng-alain@^2.0.0-rc.3:
-  version "2.0.0-rc.3"
-  resolved "http://registry.npm.taobao.org/ng-alain/download/ng-alain-2.0.0-rc.3.tgz#f2f8c627780d50a6df74a47bcc8d4993da7c5773"
-  integrity sha1-8vjGJ3gNUKbfdKR7zI1Jk9p8V3M=
+ng-alain@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/ng-alain/download/ng-alain-2.0.0.tgz#add62810e1e3982fb9f95e5e278cebd218403810"
+  integrity sha1-rdYoEOHjmC+5+V5eJ4zr0hhAOBA=
 
 ng-zorro-antd@^1.6.0:
   version "1.8.0"

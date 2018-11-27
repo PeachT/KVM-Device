@@ -11,6 +11,7 @@ import { AppService } from 'app/services/app.service';
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.less']
 })
+
 export class ProjectComponent implements OnInit, AfterViewInit {
   // /** id */
   // id: number;
@@ -36,16 +37,14 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   // steelStrands: Array<SteelStrand>;
   @ViewChild('sf')
     private sf: SFComponent;
-  @ViewChild('dsf')
-    private sfdom: ElementRef;
   schema = {
     properties: {
       id: {
         type: 'string',
         title: 'id',
         ui: {
-          grid: { span: 24 }
-        }
+          grid: { span: 24 },
+        },
       },
       name: {
         type: 'string',
@@ -125,8 +124,12 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       spanLabelFixed: 100,
       grid: {
         span: 12
-      }
-    }
+      },
+      // hidden: true,
+      disabled: true,
+    },
+    // hidden: true,
+    disabled: true,
   };
   formData: Project = projectInit;
   ui = {};
@@ -153,9 +156,15 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
   ngAfterViewInit() {
     this.initSuccess = true;
+    console.log('完成！！');
+    // this.inputDisabled();
   }
+  // ngDoCheck() {
+  //   console.log('更新完成');
+  // }
 
   getData(id) {
     this._db.getByid(tableNames.project, id).then(d => {
@@ -180,6 +189,8 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       if (res) {
         this.getMenu();
         this.router.navigate([this.app.nowUrl, res]);
+        this.edit = false;
+        this.inputDisabled();
       }
       s.unsubscribe();
     });
@@ -190,11 +201,14 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     if (this.initSuccess) {
       // this.edit = true;
     }
+    console.log('更改');
+    this.inputDisabled();
   }
 
   error(value: any) {
     // console.log('formError', value);
   }
+
   cancel() {
     console.log(this.app.menuAction[0]);
     if (this.data.id) {
@@ -203,20 +217,41 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       this.sf.reset();
     }
     this.edit = false;
+    this.inputDisabled();
   }
+
   add(data = projectInit) {
     // console.log(this.formData);
     this.formData = data;
     this.sf.refreshSchema();
     this.edit = true;
   }
+
   update() {
     this.edit = true;
+    this.inputDisabled();
   }
+
   delete() {
   }
-  r() {
-    this.sf.refreshSchema();
-    this.edit = true;
+  // 编辑状态
+  inputDisabled() {
+    // 获取所有input
+    const input = document.getElementsByTagName('input');
+    // 获取 supervisions 对象的button
+    const supervisions = document.getElementsByClassName('add')[0].getElementsByTagName('button')[0];
+    for (let index = 0; index < input.length; index++) {
+      // s[index].setAttribute('readonly', 'readonly');
+      if (!this.edit) {
+        input[index].setAttribute('disabled', 'disabled');
+      } else {
+        input[index].removeAttribute('disabled');
+      }
+    }
+    if (!this.edit) {
+      supervisions.setAttribute('disabled', 'disabled');
+    } else {
+      supervisions.removeAttribute('disabled');
+    }
   }
 }
