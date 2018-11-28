@@ -1,14 +1,16 @@
 import Dexie from 'dexie';
 import { Injectable } from '@angular/core';
-import { User, userIndex } from './models/user';
 import { Observable } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Project, projectIndex } from './models/project';
 import { Menus } from 'app/models/menu';
+import { Project, projectIndex } from './models/project';
+import { User, userIndex } from './models/user';
+import { Comp, compIndex } from './models/component';
 
 export enum tableNames {
   user = 'user',
-  project = 'project'
+  project = 'project',
+  component = 'component'
 }
 
 @Injectable({ providedIn: 'root' })
@@ -28,7 +30,7 @@ export class DbService {
    * @returns {(Observable<boolean | number>)} 失败返回false 成功返回id
    * @memberof DbService
    */
-  public post(tableName: string, saveData: User | Project, inquery: Function): Observable<boolean | number> {
+  public post(tableName: string, saveData: User | Project | Comp, inquery: Function): Observable<boolean | number> {
     return new Observable((observer) => {
       this.db[tableName].filter(a => inquery(a)).first().then((oldData) => {
         console.log(tableName, saveData);
@@ -63,13 +65,16 @@ export class DbService {
       });
     });
   }
-  public async getByid(tableName: string, id: string | number): Promise<User | Project> {
+  public async getByid(tableName: string, id: string | number): Promise<User | Project | Comp> {
     return await this.db[tableName].get(Number(id));
   }
-  public async getAll(tableName: string): Promise<Menus[]> {
+  public async getAll(tableName: string, pushMneu: Function): Promise<Menus[]> {
     const menu: Menus[] = [];
+    // await this.db[tableName].each(d => {
+    //   menu.push({title: d.name, link: String(d.id)});
+    // });
     await this.db[tableName].each(d => {
-      menu.push({title: d.name, link: String(d.id)});
+      menu.push(pushMneu(d));
     });
     return menu;
   }
@@ -79,12 +84,14 @@ export class DbService {
 export class DB extends Dexie {
   user!: Dexie.Table<User, number>;
   project!: Dexie.Table<Project, number>;
+  component!: Dexie.Table<Comp, number>;
 
   constructor() {
     super('KVM');
     this.version(1).stores({
       user: userIndex,
       project: projectIndex,
+      component: compIndex,
     });
     this.open();
   }

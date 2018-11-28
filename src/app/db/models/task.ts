@@ -1,6 +1,6 @@
 import { Project } from './project';
 import { Device } from './device';
-import { Component } from './component';
+import { Comp } from './component';
 
 export interface Task {
   /** id */
@@ -14,7 +14,7 @@ export interface Task {
   /** 使用设备 */
   device?: Device;
   /** 构建 */
-  component?: Component;
+  component?: Comp;
 
   /** 张拉组名称 */
   tensionGroup?: Array<Tension>;

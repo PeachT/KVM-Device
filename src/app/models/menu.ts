@@ -1,8 +1,6 @@
 export interface Menus {
   /** 菜单名称 */
   title: string;
-  /** 状态 */
-  state?: boolean;
   /** 菜单图标 */
   icon?: string;
   /** 菜单连接 */

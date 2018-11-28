@@ -15,7 +15,7 @@
     <nz-spin *ngIf="loading && hasMore" class="demo-loading"></nz-spin>
   </nz-list>
 </div> -->
-<div #s class="main-scroll" (scroll)="scroll($event)">
+<div #s class="main-scroll tree-menu-active" (scroll)="scroll($event)">
   <ul>
     <li *ngFor="let item of menus" [ngStyle]="{'max-height': (app.menuAction[ikey] === item.link) && item.childrenHidden ? '100%':'auto'}" >
       <div class="item-dom" *ngIf="(!app.menuAction[ikey] || app.menuAction[ikey] === item.link) || !item.childrenHidden">

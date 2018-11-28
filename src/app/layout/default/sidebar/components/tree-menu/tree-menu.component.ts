@@ -49,21 +49,30 @@ export class TreeMenuComponent implements OnInit, AfterViewInit {
     const active = this.app.menuAction;
     if (item.children) {
       // this.link = this.link === item.link ? null : item.link;
-      if (active[this.ikey] === item.link) {
-        this.app.menuAction.splice(this.ikey, active.length - this.ikey);
+      console.log(item, this.app.nowRoute);
+      if ((active[this.ikey] !== item.link) && !item.childrenHidden) {
+        if (this.app.nowRoute && (item.link === this.app.nowRoute[this.ikey])) {
+          this.app.menuAction = this.app.nowRoute.concat();
+        } else {
+          this.app.menuAction.splice(this.ikey, active.length - this.ikey);
+          active[this.ikey] = item.link;
+        }
       } else {
-        active[this.ikey] = item.link;
+        this.app.menuAction.splice(this.ikey, active.length - this.ikey);
       }
     } else if (active[this.ikey] !== item.link) {
       active[this.ikey] = item.link;
       // this.link = item.link;
-      const url = `${this.app.nowUrl}/${item.link}`;
+      let url = this.app.nowUrl;
+      for (const i of active) {
+        url = `${url}/${i}`;
+      }
       this.msg.info(`跳转${url}`);
       this.router.navigate([url]);
     }
     // item.state = this.link ? true : false;
     // this.hidden = !item.childrenHidden;
-    console.log('菜单', this.app.menuAction);
+    console.log('菜单11', this.app.menuAction, this.ikey);
   }
   scroll(event) {
     console.log(event, event.currentTarget.scrollHeight - event.currentTarget.scrollTop - this.scrroll.nativeElement.offsetHeight);

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { SFComponent } from '@delon/form';
-import { Project, projectInit } from 'app/db/models/project';
+import { Project, projectInit as datainit } from 'app/db/models/project';
 import { DbService, tableNames } from 'app/db/db.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppService } from 'app/services/app.service';
@@ -37,6 +37,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   // steelStrands: Array<SteelStrand>;
   @ViewChild('sf')
     private sf: SFComponent;
+  /** 动态表单 */
   schema = {
     properties: {
       id: {
@@ -131,11 +132,15 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     // hidden: true,
     disabled: true,
   };
-  formData: Project = projectInit;
+  /** 初始化数据 */
+  formData: Project = datainit;
+  /** 表单样式 */
   ui = {};
+  /** 表单布局 */
   layout = 'horizontal';
+  /** 表单编辑状态 */
   edit = false;
-  initSuccess = false;
+  /** 数据 */
   data: Project = null;
 
   constructor(
@@ -148,8 +153,11 @@ export class ProjectComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getMenu();
+    /** 路由改变监控 */
     this._activatedRoute.params.subscribe(params => {
       console.log('路由', params);
+      this.app.nowRoute = params;
+      this.app.menuAction = [];
       if (params.id) {
         this.getData(params.id);
         this.app.menuAction[0] = params.id;
@@ -158,14 +166,13 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.initSuccess = true;
     console.log('完成！！');
     // this.inputDisabled();
   }
   // ngDoCheck() {
   //   console.log('更新完成');
   // }
-
+  /** 获取一条数据 */
   getData(id) {
     this._db.getByid(tableNames.project, id).then(d => {
       this.data = d as Project;
@@ -174,14 +181,15 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       this.edit = false;
     });
   }
+  /** 获取菜单 */
   getMenu() {
     console.log('获取菜单');
-    this._db.getAll(tableNames.project).then(p => {
+    this._db.getAll(tableNames.project, (d) => ({title: d.name, link: String(d.id)})).then(p => {
       console.log('菜单', p);
       this.app.menus = p;
     });
   }
-
+  /** 提交表单 */
   submit(value: any) {
     this.msg.success(JSON.stringify(value));
     const s = this._db.post(tableNames.project, value, (p) => p.name === value.name).subscribe((res) => {
@@ -195,23 +203,15 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       s.unsubscribe();
     });
   }
-
+  /** 表单变更监控 */
   change(value: any) {
-    // console.log('formChange', value, this.initSuccess);
-    if (this.initSuccess) {
-      // this.edit = true;
-    }
     console.log('更改');
     this.inputDisabled();
   }
-
-  error(value: any) {
-    // console.log('formError', value);
-  }
-
+  /** 表单取消编辑 */
   cancel() {
-    console.log(this.app.menuAction[0]);
-    if (this.data.id) {
+    console.log('取消', this.app.menuAction[0], this.data);
+    if (this.data) {
       this.add(this.data);
     } else {
       this.sf.reset();
@@ -219,39 +219,43 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     this.edit = false;
     this.inputDisabled();
   }
-
-  add(data = projectInit) {
-    // console.log(this.formData);
+  /** 添加一条数据 */
+  add(data = datainit) {
     this.formData = data;
     this.sf.refreshSchema();
     this.edit = true;
+    console.log(this.formData);
+    this.inputDisabled();
   }
-
+  /** 更改数据 */
   update() {
     this.edit = true;
     this.inputDisabled();
   }
-
+  /** 删除数据 */
   delete() {
   }
-  // 编辑状态
+  /** 表单控件状态 */
   inputDisabled() {
-    // 获取所有input
-    const input = document.getElementsByTagName('input');
-    // 获取 supervisions 对象的button
-    const supervisions = document.getElementsByClassName('add')[0].getElementsByTagName('button')[0];
-    for (let index = 0; index < input.length; index++) {
-      // s[index].setAttribute('readonly', 'readonly');
-      if (!this.edit) {
-        input[index].setAttribute('disabled', 'disabled');
-      } else {
-        input[index].removeAttribute('disabled');
+    try {
+      // 获取所有input
+      const input = document.getElementsByTagName('input');
+      // 获取 supervisions 对象的button
+      const supervisions = document.getElementsByClassName('add')[0].getElementsByTagName('button')[0];
+      for (let index = 0; index < input.length; index++) {
+        // s[index].setAttribute('readonly', 'readonly');
+        if (!this.edit) {
+          input[index].setAttribute('disabled', 'disabled');
+        } else {
+          input[index].removeAttribute('disabled');
+        }
       }
-    }
-    if (!this.edit) {
-      supervisions.setAttribute('disabled', 'disabled');
-    } else {
-      supervisions.removeAttribute('disabled');
+      if (!this.edit) {
+        supervisions.setAttribute('disabled', 'disabled');
+      } else {
+        supervisions.removeAttribute('disabled');
+      }
+    } catch (error) {
     }
   }
 }

@@ -1,5 +1,6 @@
+<!-- firstVisual="true" -->
 <sf #sf [schema]="schema" [formData]="formData" [ui]="ui" [layout]="layout" (formSubmit)="submit($event)" (formChange)="change($event)"
-  (formError)="error($event)" [button]="null" firstVisual="true">
+  [button]="null" [firstVisual]="edit">
   <div class="operation">
     <div *ngIf="edit">
       <button nzShape="circle" type="submit" nz-button [disabled]="!sf.valid" nzType="primary">保存</button>

@@ -36,7 +36,7 @@ const routes: Routes = [
         data: { title: '项目', titleI18n: 'project' } },
       { path: 'component', loadChildren: './component/component.module#ComponentModule',
         data: { title: '构件', titleI18n: 'component' } },
-      { path: 'component/:id', loadChildren: './component/component.module#ComponentModule',
+      { path: 'component/:componentName/:id', loadChildren: './component/component.module#ComponentModule',
         data: { title: '构件', titleI18n: 'component' } },
       { path: 'device', loadChildren: './device/device.module#DeviceModule',
         data: { title: '设备', titleI18n: 'device' } },
