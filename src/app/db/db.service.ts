@@ -33,15 +33,17 @@ export class DbService {
   public post(tableName: string, saveData: User | Project | Comp, inquery: Function): Observable<boolean | number> {
     return new Observable((observer) => {
       this.db[tableName].filter(a => inquery(a)).first().then((oldData) => {
-        console.log(tableName, saveData);
+        console.log(tableName, saveData, oldData);
         if (oldData) {
           if (!(oldData.id === saveData.id)) {
+            this.msg.error('出错了😵！数据一已存在！！');
             observer.next(false);
             return;
           }
         }
         if (saveData.id) {
           this.db[tableName].update(saveData.id, saveData).then((updated) => {
+            console.log('更新数据', updated);
             if (updated) {
               observer.next(saveData.id);
               this.msg.success('更新成功🙂');
@@ -49,8 +51,9 @@ export class DbService {
               observer.next(false);
               this.msg.warning('数据没有变更？');
             }
-          }).catch(() => {
-            this.msg.error('出错了😵');
+          }).catch((e) => {
+            this.msg.error('修改出错了😵');
+            console.error(e);
           });
         } else {
           saveData.id = new Date().getTime();
@@ -58,7 +61,7 @@ export class DbService {
               observer.next(saveData.id);
               this.msg.success('添加成功🙂');
             }).catch(() => {
-              this.msg.error('出错了😵');
+              this.msg.error('新增出错了😵');
             });
         }
       }).catch(() => {

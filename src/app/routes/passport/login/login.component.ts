@@ -33,7 +33,6 @@ export class UserLoginComponent implements OnDestroy {
     private router: Router,
     public msg: NzMessageService,
     private modalSrv: NzModalService,
-    private settingsService: SettingsService,
     private socialService: SocialService,
     private settingService: SettingsService,
     @Optional()

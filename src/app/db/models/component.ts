@@ -9,7 +9,7 @@ export interface Comp {
   holes: Array<string>;
 }
 /** 构建索引 */
-export const compIndex = '&id,componentName,&holeName';
+export const compIndex = '&id,componentName,holeName';
 
 export const compInit: Comp = {
   id: null,

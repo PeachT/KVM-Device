@@ -356,9 +356,11 @@ export class AppService {
   /** 当前选择中菜单路径 */
   public menuAction: string[] = ['1', '1-1', '1-1-1'];
   /** 当前路由主路径 */
-  public nowUrl = null;
+  public nowUrl = '';
   /** 当前路由参数 */
   public nowRoute = null;
+  /** 编辑状态 */
+  public edit = false;
 
   constructor(private router: Router) {
   }
@@ -369,5 +371,31 @@ export class AppService {
       url = `${url}/${i}`;
     }
     this.router.navigate([url]);
+    this.edit = false;
+  }
+  /**
+   * 禁用dom元素
+   *
+   * @param {string} tagName dom名称
+   * @memberof AppService
+   */
+  public tagDisabled(tagName: string) {
+    const tags = document.getElementsByTagName(tagName);
+    for (let index = 0; index < tags.length; index++) {
+      this.disabled(tags[index]);
+    }
+  }
+  /**
+   * 禁用单个元素
+   *
+   * @param {Element} dom Dom
+   * @memberof AppService
+   */
+  public disabled(dom: Element) {
+    if (this.edit) {
+      dom.removeAttribute('disabled');
+    } else {
+      dom.setAttribute('disabled', 'disabled');
+    }
   }
 }

@@ -96,7 +96,7 @@ export class ComponentComponent implements OnInit, AfterViewInit {
     private msg: NzMessageService,
     private _db: DbService,
     private router: Router,
-    private app: AppService,
+    public app: AppService,
     private _activatedRoute: ActivatedRoute,
   ) { }
 
@@ -136,7 +136,7 @@ export class ComponentComponent implements OnInit, AfterViewInit {
       // this.add(this.data);
       this.data.holes = this.data.holes.sort();
       this.formData = this.data;
-      this.edit = false;
+      this.app.edit = false;
     });
   }
   /** 获取菜单 */
@@ -179,15 +179,15 @@ export class ComponentComponent implements OnInit, AfterViewInit {
     });
   }
   /** 提交表单 */
-  submit(value: any) {
-    this.msg.success(JSON.stringify(value));
-    const s = this._db.post(tableNames.component, value, (p) => p.holeName === value.holeName).subscribe((res) => {
-      console.log(res);
+  submit(value: Comp) {
+    const s = this._db.post(tableNames.component, value, (p) => (
+      p.holeName === value.holeName && p.componentName === value.componentName))
+    .subscribe((res) => {
+      console.log('保存结果：', res);
       if (res) {
         this.getMenu();
+        this.formData = value;
         this.app.goNavigate(res);
-        // this.router.navigate([this.app.nowUrl, res]);
-        // this.edit = false;
         this.inputDisabled();
       }
       s.unsubscribe();
@@ -195,7 +195,7 @@ export class ComponentComponent implements OnInit, AfterViewInit {
   }
   /** 表单变更监控 */
   change(value: any) {
-    console.log('更改', value);
+    // console.log('更改', value);
     this.inputDisabled();
   }
   /** 表单取消编辑 */
@@ -206,7 +206,7 @@ export class ComponentComponent implements OnInit, AfterViewInit {
     } else {
       this.sf.reset();
     }
-    this.edit = false;
+    this.app.edit = false;
     this.inputDisabled();
   }
   /** 添加一条数据 */
@@ -214,12 +214,12 @@ export class ComponentComponent implements OnInit, AfterViewInit {
     // console.log(this.formData);
     this.formData = data;
     this.sf.refreshSchema();
-    this.edit = true;
+    this.app.edit = true;
     this.inputDisabled();
   }
   /** 更改数据 */
   update() {
-    this.edit = true;
+    this.app.edit = true;
     this.inputDisabled();
   }
   /** 删除数据 */
@@ -228,20 +228,13 @@ export class ComponentComponent implements OnInit, AfterViewInit {
   /** 表单控件状态 */
   inputDisabled() {
     // 获取所有input
-    const input = document.getElementsByTagName('input');
-    const holesDom = document.getElementsByTagName('nz-select')[0];
-    for (let index = 0; index < input.length; index++) {
-      // s[index].setAttribute('readonly', 'readonly');
-      if (!this.edit) {
-        input[index].setAttribute('disabled', 'disabled');
-      } else {
-        input[index].removeAttribute('disabled');
-      }
-    }
-    if (!this.edit) {
-      holesDom.setAttribute('disabled', 'disabled');
-    } else {
-      holesDom.removeAttribute('disabled');
-    }
+    // const input = document.getElementsByTagName('input');
+    // const holesDom = document.getElementsByTagName('nz-select')[0];
+    // for (let index = 0; index < input.length; index++) {
+    //   this.app.disabled(input[index]);
+    // }
+    // this.app.disabled(holesDom);
+    this.app.tagDisabled('input');
+    this.app.tagDisabled('nz-select');
   }
 }

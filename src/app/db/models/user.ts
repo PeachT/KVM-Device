@@ -13,3 +13,11 @@ export interface User {
 }
 /** 管理员索引 */
 export const userIndex = '&id,&name,authority';
+
+export const userInit: User = {
+  id: null,
+  name: null,
+  password: null,
+  authority: 0,
+  avatar: null
+};

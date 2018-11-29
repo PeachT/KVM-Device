@@ -147,7 +147,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     private msg: NzMessageService,
     private _db: DbService,
     private router: Router,
-    private app: AppService,
+    public app: AppService,
     private _activatedRoute: ActivatedRoute,
     ) { }
 
@@ -156,11 +156,11 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     /** 路由改变监控 */
     this._activatedRoute.params.subscribe(params => {
       console.log('路由', params);
-      this.app.nowRoute = params;
       this.app.menuAction = [];
       if (params.id) {
         this.getData(params.id);
         this.app.menuAction[0] = params.id;
+        this.app.nowRoute = this.app.menuAction.concat();
       }
     });
   }
@@ -178,7 +178,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       this.data = d as Project;
       // this.add(this.data);
       this.formData = this.data;
-      this.edit = false;
+      this.app.edit = false;
     });
   }
   /** 获取菜单 */
@@ -191,13 +191,14 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   }
   /** 提交表单 */
   submit(value: any) {
-    this.msg.success(JSON.stringify(value));
     const s = this._db.post(tableNames.project, value, (p) => p.name === value.name).subscribe((res) => {
       console.log(res);
       if (res) {
         this.getMenu();
-        this.router.navigate([this.app.nowUrl, res]);
-        this.edit = false;
+        this.getData(res);
+        // this.router.navigate([this.app.nowUrl, res]);
+        // this.app.edit = false;
+        this.app.goNavigate(res);
         this.inputDisabled();
       }
       s.unsubscribe();
@@ -216,20 +217,20 @@ export class ProjectComponent implements OnInit, AfterViewInit {
     } else {
       this.sf.reset();
     }
-    this.edit = false;
+    this.app.edit = false;
     this.inputDisabled();
   }
   /** 添加一条数据 */
   add(data = datainit) {
     this.formData = data;
     this.sf.refreshSchema();
-    this.edit = true;
+    this.app.edit = true;
     console.log(this.formData);
     this.inputDisabled();
   }
   /** 更改数据 */
   update() {
-    this.edit = true;
+    this.app.edit = true;
     this.inputDisabled();
   }
   /** 删除数据 */
@@ -237,25 +238,8 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   }
   /** 表单控件状态 */
   inputDisabled() {
-    try {
-      // 获取所有input
-      const input = document.getElementsByTagName('input');
-      // 获取 supervisions 对象的button
-      const supervisions = document.getElementsByClassName('add')[0].getElementsByTagName('button')[0];
-      for (let index = 0; index < input.length; index++) {
-        // s[index].setAttribute('readonly', 'readonly');
-        if (!this.edit) {
-          input[index].setAttribute('disabled', 'disabled');
-        } else {
-          input[index].removeAttribute('disabled');
-        }
-      }
-      if (!this.edit) {
-        supervisions.setAttribute('disabled', 'disabled');
-      } else {
-        supervisions.removeAttribute('disabled');
-      }
-    } catch (error) {
-    }
+    this.app.tagDisabled('input');
+    const supervisions = document.getElementsByClassName('add')[0].getElementsByTagName('button')[0];
+    this.app.disabled(supervisions);
   }
 }
