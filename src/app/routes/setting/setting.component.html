@@ -1,3 +1,5 @@
 <p>
   setting works!
 </p>
+<app-sf #sf [schema]="schema" [data]="data" [formData]="formData" [ui]="ui"
+  (superSubmit)="submit($event)" (superDelete)="delete()"></app-sf>

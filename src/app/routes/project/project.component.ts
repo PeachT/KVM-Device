@@ -83,7 +83,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       supervisions: {
         type: 'array',
         title: '监理',
-        maxItems: 4,
+        // maxItems: 4,
         items: {
           type: 'object',
           properties: {
@@ -126,11 +126,7 @@ export class ProjectComponent implements OnInit, AfterViewInit {
       grid: {
         span: 12
       },
-      // hidden: true,
-      disabled: true,
     },
-    // hidden: true,
-    disabled: true,
   };
   /** 初始化数据 */
   formData: Project = datainit;
@@ -199,47 +195,11 @@ export class ProjectComponent implements OnInit, AfterViewInit {
         // this.router.navigate([this.app.nowUrl, res]);
         // this.app.edit = false;
         this.app.goNavigate(res);
-        this.inputDisabled();
       }
       s.unsubscribe();
     });
   }
-  /** 表单变更监控 */
-  change(value: any) {
-    console.log('更改');
-    this.inputDisabled();
-  }
-  /** 表单取消编辑 */
-  cancel() {
-    console.log('取消', this.app.menuAction[0], this.data);
-    if (this.data) {
-      this.add(this.data);
-    } else {
-      this.sf.reset();
-    }
-    this.app.edit = false;
-    this.inputDisabled();
-  }
-  /** 添加一条数据 */
-  add(data = datainit) {
-    this.formData = data;
-    this.sf.refreshSchema();
-    this.app.edit = true;
-    console.log(this.formData);
-    this.inputDisabled();
-  }
-  /** 更改数据 */
-  update() {
-    this.app.edit = true;
-    this.inputDisabled();
-  }
   /** 删除数据 */
   delete() {
-  }
-  /** 表单控件状态 */
-  inputDisabled() {
-    this.app.tagDisabled('input');
-    const supervisions = document.getElementsByClassName('add')[0].getElementsByTagName('button')[0];
-    this.app.disabled(supervisions);
   }
 }

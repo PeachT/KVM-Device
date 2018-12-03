@@ -52,8 +52,8 @@ export class LayoutDefaultComponent
     public settings: SettingsService,
     private el: ElementRef,
     private renderer: Renderer2,
+    public app: AppService,
     @Inject(DOCUMENT) private doc: any,
-    private app: AppService,
     protected route: ActivatedRoute
   ) {
     // scroll to top in change page
@@ -118,5 +118,9 @@ export class LayoutDefaultComponent
 
   ngOnDestroy() {
     this.notify$.unsubscribe();
+  }
+  stop(e) {
+    console.log('456');
+    e.stopPropagation();
   }
 }

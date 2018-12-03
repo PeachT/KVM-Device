@@ -7,11 +7,11 @@ import { NgxElectronModule } from 'ngx-electron';
 
 // #region default language
 // 参考：https://ng-alain.com/docs/i18n
-import { default as ngLang } from '@angular/common/locales/zh-Hans';
+import { default as ngLang } from '@angular/common/locales/zh';
 import { NZ_I18N, zh_CN as zorroLang } from 'ng-zorro-antd';
 import { DELON_LOCALE, zh_CN as delonLang } from '@delon/theme';
 const LANG = {
-  abbr: 'zh-Hans',
+  abbr: 'zh-cn',
   ng: ngLang,
   zorro: zorroLang,
   delon: delonLang,
@@ -71,13 +71,15 @@ import { RoutesModule } from './routes/routes.module';
 import { LayoutModule } from './layout/layout.module';
 import { FileBase64Component } from './sf-widgets/file-base64/file-base64.component';
 import { WidgetRegistry } from '@delon/form';
+import { DeviceDetailComponent } from './sf-widgets/device-detail/device-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FileBase64Component
+    FileBase64Component,
+    DeviceDetailComponent
   ],
-  entryComponents: [ FileBase64Component ],
+  entryComponents: [ FileBase64Component, DeviceDetailComponent ],
   imports: [
     NgxElectronModule,
     BrowserModule,
@@ -101,5 +103,6 @@ import { WidgetRegistry } from '@delon/form';
 export class AppModule {
   constructor(widgetRegistry: WidgetRegistry) {
     widgetRegistry.register(FileBase64Component.KEY, FileBase64Component);
+    widgetRegistry.register(DeviceDetailComponent.KEY, DeviceDetailComponent);
   }
 }

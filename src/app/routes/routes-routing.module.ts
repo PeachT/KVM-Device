@@ -17,6 +17,9 @@ import { UserLockComponent } from './passport/lock/lock.component';
 import { Exception403Component } from './exception/403.component';
 import { Exception404Component } from './exception/404.component';
 import { Exception500Component } from './exception/500.component';
+// my component
+import { ProjectComponent } from './project/project.component';
+import { DeviceComponent } from './device/device.component';
 
 const routes: Routes = [
   {
@@ -30,18 +33,28 @@ const routes: Routes = [
         data: { title: '手动', titleI18n: 'manual' } },
       { path: 'manual/:id', loadChildren: './manual/manual.module#ManualModule',
         data: { title: '手动', titleI18n: 'manual' } },
-      { path: 'project', loadChildren: './project/project.module#ProjectModule',
+      // { path: 'project', loadChildren: './project/project.module#ProjectModule',
+      //   data: { title: '项目', titleI18n: 'project' } },
+      // { path: 'project/:id', loadChildren: './project/project.module#ProjectModule',
+      //   data: { title: '项目', titleI18n: 'project' } },
+      { path: 'project', component: ProjectComponent,
+      data: { title: '项目', titleI18n: 'project' } },
+      { path: 'project/:id', component: ProjectComponent,
         data: { title: '项目', titleI18n: 'project' } },
-      { path: 'project/:id', loadChildren: './project/project.module#ProjectModule',
-        data: { title: '项目', titleI18n: 'project' } },
+
       { path: 'component', loadChildren: './component/component.module#ComponentModule',
         data: { title: '构件', titleI18n: 'component' } },
       { path: 'component/:componentName/:id', loadChildren: './component/component.module#ComponentModule',
         data: { title: '构件', titleI18n: 'component' } },
-      { path: 'device', loadChildren: './device/device.module#DeviceModule',
+      // { path: 'device', loadChildren: './device/device.module#DeviceModule',
+      //   data: { title: '设备', titleI18n: 'device' } },
+      // { path: 'device/:id', loadChildren: './device/device.module#DeviceModule',
+      //   data: { title: '设备', titleI18n: 'device' } },
+      { path: 'device', component: DeviceComponent,
         data: { title: '设备', titleI18n: 'device' } },
-      { path: 'device/:id', loadChildren: './device/device.module#DeviceModule',
+      { path: 'device/:id', component: DeviceComponent,
         data: { title: '设备', titleI18n: 'device' } },
+
       { path: 'help', loadChildren: './help/help.module#HelpModule',
         data: { title: '帮助', titleI18n: 'help' } },
       { path: 'help/:id', loadChildren: './help/help.module#HelpModule',

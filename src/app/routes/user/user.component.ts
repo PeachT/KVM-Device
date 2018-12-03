@@ -101,7 +101,6 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     console.log('完成！！');
-    this.inputDisabled();
   }
   // ngDoCheck() {
   //   console.log('更新完成');
@@ -146,46 +145,11 @@ export class UserComponent implements OnInit, AfterViewInit {
       if (res) {
         this.getMenu();
         this.app.goNavigate(res);
-        this.inputDisabled();
       }
       s.unsubscribe();
     });
   }
-  /** 表单变更监控 */
-  change(value: User) {
-    console.log('更改', value);
-    this.inputDisabled();
-  }
-  /** 表单取消编辑 */
-  cancel() {
-    console.log(this.app.menuAction[0]);
-    if (this.data) {
-      this.add(this.data);
-    } else {
-      this.sf.reset();
-    }
-    this.app.edit = false;
-    this.inputDisabled();
-  }
-  /** 添加一条数据 */
-  add(data = datainit) {
-    // console.log(this.formData);
-    this.formData = data;
-    this.sf.refreshSchema();
-    this.app.edit = true;
-    this.inputDisabled();
-  }
-  /** 更改数据 */
-  update() {
-    this.app.edit = true;
-    this.inputDisabled();
-  }
   /** 删除数据 */
   delete() {
-  }
-  /** 表单控件状态 */
-  inputDisabled() {
-    this.app.tagDisabled('input');
-    this.app.tagDisabled('nz-radio-group');
   }
 }

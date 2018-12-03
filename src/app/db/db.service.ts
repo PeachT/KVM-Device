@@ -6,11 +6,13 @@ import { Menus } from 'app/models/menu';
 import { Project, projectIndex } from './models/project';
 import { User, userIndex } from './models/user';
 import { Comp, compIndex } from './models/component';
+import { Device, deviceIndex } from './models/device';
 
 export enum tableNames {
   user = 'user',
   project = 'project',
-  component = 'component'
+  component = 'component',
+  device = 'device',
 }
 
 @Injectable({ providedIn: 'root' })
@@ -30,7 +32,7 @@ export class DbService {
    * @returns {(Observable<boolean | number>)} 失败返回false 成功返回id
    * @memberof DbService
    */
-  public post(tableName: string, saveData: User | Project | Comp, inquery: Function): Observable<boolean | number> {
+  public post(tableName: string, saveData: User | Project | Comp | Device, inquery: Function): Observable<boolean | number> {
     return new Observable((observer) => {
       this.db[tableName].filter(a => inquery(a)).first().then((oldData) => {
         console.log(tableName, saveData, oldData);
@@ -68,7 +70,7 @@ export class DbService {
       });
     });
   }
-  public async getByid(tableName: string, id: string | number): Promise<User | Project | Comp> {
+  public async getByid(tableName: string, id: string | number): Promise<User | Project | Comp | Device> {
     return await this.db[tableName].get(Number(id));
   }
   public async getAll(tableName: string, pushMneu: Function): Promise<Menus[]> {
@@ -88,6 +90,7 @@ export class DB extends Dexie {
   user!: Dexie.Table<User, number>;
   project!: Dexie.Table<Project, number>;
   component!: Dexie.Table<Comp, number>;
+  device!: Dexie.Table<Device, number>;
 
   constructor() {
     super('KVM');
@@ -95,6 +98,7 @@ export class DB extends Dexie {
       user: userIndex,
       project: projectIndex,
       component: compIndex,
+      device: deviceIndex,
     });
     this.open();
   }

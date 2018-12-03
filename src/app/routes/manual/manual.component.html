@@ -1,3 +1,23 @@
 <p>
   manual works!
 </p>
+<form class="sf" nz-form [formGroup]="validateForm">
+  <nz-form-item *ngFor="let item of fts">
+    <nz-form-label [nzSpan]="5" nzRequired [nzFor]="item">{{item}}</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <input id="note" type="text" nz-input [formControlName]="item">
+      <nz-form-explain *ngIf="validateForm.get(item).errors">必填项</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <div class="operation">
+    <div *ngIf="app.edit">
+      <button nzShape="circle" type="submit" nz-button  nzType="primary">保存</button>
+      <button nzShape="circle" (click)="cancel()" type="button" nz-button>取消</button>
+    </div>
+    <div *ngIf="!app.edit">
+      <button nzShape="circle" type="submit" nzType="primary" nz-button (click)="add()">添加</button>
+      <button nzShape="circle" type="submit" nzType="default" nz-button (click)="update()" >修改</button>
+      <button nzShape="circle" type="button" nzType="danger" nz-button (click)="delete()" >删除</button>
+    </div>
+  </div>
+</form>

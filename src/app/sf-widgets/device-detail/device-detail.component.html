@@ -1,0 +1,20 @@
+<sf-item-wrap class="device-detail" [id]="id" [schema]="schema" [ui]="ui" [showError]="showError" [error]="error"
+  [showTitle]="schema.title">
+  <!-- 开始自定义控件区域 -->
+  <!-- <tinymce
+      [ngModel]="value"
+      (ngModelChange)="change($event)"
+      [config]="config"
+      [loading]="loading">
+    </tinymce> -->
+  <!-- <app-device-detail></app-device-detail> -->
+  <div class="device-title">
+    <div style="display: inline-block;">
+      <h1 style="margin: 0;">{{schema['name']}}</h1>
+    </div>
+    <div style="float: right;">
+      <button nz-button>校正</button>
+    </div>
+  </div>
+  <!-- 结束自定义控件区域 -->
+</sf-item-wrap>

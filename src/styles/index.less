@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.full {
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  position: fixed;
+  opacity: .5;
+  z-index: 10;
+}
 .header-menu {
   .active {
     background: linear-gradient(-45deg, #225e9e 0%, #712c69 100%);
@@ -38,6 +46,24 @@
 }
 
 sf {
+  padding-bottom: 56px;
+  &.edit{
+    input {
+      border-left: 4px solid;
+      border-color: #42b983;
+      pointer-events: auto;
+    }
+    nz-select {
+      pointer-events: auto;
+      .ant-select-selection {
+        border-left: 4px solid ;
+        border-color: #42b983;
+      }
+    }
+    .has-error .ant-select-selection, .has-error input{
+      border-color: #f5222d !important;
+    }
+  }
   .operation {
     position: fixed;
     bottom: 0;
@@ -47,23 +73,56 @@ sf {
       width: 56px;
       height: 56px;
     }
+    z-index: 11;
   }
-  input:not([disabled]) {
-    border-left: 4px solid;
-    border-color: #42b983;
-    pointer-events: auto;
-  }
-  nz-select:not([disabled]) {
-    pointer-events: auto;
-    .ant-select-selection {
-      border-left: 4px solid ;
-      border-color: #42b983;
+  // input:not([disabled]) {
+  //   border-left: 4px solid;
+  //   border-color: #42b983;
+  //   pointer-events: auto;
+  // }
+  // nz-select:not([disabled]) {
+  //   pointer-events: auto;
+  //   .ant-select-selection {
+  //     border-left: 4px solid ;
+  //     border-color: #42b983;
+  //   }
+  // }
+  // nz-select[disabled], nz-radio-group[disabled], nz-checkbox-group[disabled] {
+  //   pointer-events: none;
+  // }
+  // .has-error .ant-select-selection, .has-error input{
+  //   border-color: #f5222d !important;
+  // }
+  sf-object {
+    .ant-row.sf-fixed.ng-star-inserted {
+      display: block !important;
     }
   }
-  nz-select[disabled], nz-radio-group[disabled] {
-    pointer-events: none;
+  .device-detail{
+    nz-form-item{
+      margin: 0;
+    }
   }
-  .has-error .ant-select-selection {
-    border-color: #f5222d !important;
+  nz-date-picker{
+    width: 100%;
+    span{
+      width: 100%;
+    }
+  }
+}
+.ant-input-number{
+  width: 100%;
+}
+.sf {
+  .operation {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+    button {
+      width: 56px;
+      height: 56px;
+    }
+    z-index: 11;
   }
 }

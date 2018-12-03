@@ -1,5 +1,5 @@
 <!-- firstVisual="true" -->
-<sf #sf [schema]="schema" [formData]="formData" [ui]="ui" [layout]="layout" (formSubmit)="submit($event)" (formChange)="change($event)"
+<!-- <sf #sf [schema]="schema" [formData]="formData" [ui]="ui" [layout]="layout" (formSubmit)="submit($event)" (formChange)="change($event)"
   [button]="null" [firstVisual]="app.edit">
   <div class="operation">
     <div *ngIf="app.edit">
@@ -12,4 +12,7 @@
       <button nzShape="circle" type="button" nzType="danger" nz-button (click)="delete()">删除</button>
     </div>
   </div>
-</sf>
+</sf> -->
+
+<app-sf #sf [schema]="schema" [data]="data" [formData]="formData" [ui]="ui"
+  (superSubmit)="submit($event)" (superDelete)="delete()"></app-sf>

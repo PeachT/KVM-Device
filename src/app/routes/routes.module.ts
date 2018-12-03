@@ -14,6 +14,9 @@ import { UserLockComponent } from './passport/lock/lock.component';
 import { Exception403Component } from './exception/403.component';
 import { Exception404Component } from './exception/404.component';
 import { Exception500Component } from './exception/500.component';
+// my component
+import { ProjectComponent } from './project/project.component';
+import { DeviceComponent } from './device/device.component';
 
 
 const COMPONENTS = [
@@ -22,6 +25,9 @@ const COMPONENTS = [
   UserLoginComponent,
   UserRegisterComponent,
   UserRegisterResultComponent,
+  // my component
+  ProjectComponent,
+  DeviceComponent,
   // single pages
   CallbackComponent,
   UserLockComponent,

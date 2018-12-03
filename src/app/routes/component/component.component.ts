@@ -188,53 +188,11 @@ export class ComponentComponent implements OnInit, AfterViewInit {
         this.getMenu();
         this.formData = value;
         this.app.goNavigate(res);
-        this.inputDisabled();
       }
       s.unsubscribe();
     });
   }
-  /** 表单变更监控 */
-  change(value: any) {
-    // console.log('更改', value);
-    this.inputDisabled();
-  }
-  /** 表单取消编辑 */
-  cancel() {
-    console.log(this.app.menuAction[0]);
-    if (this.data) {
-      this.add(this.data);
-    } else {
-      this.sf.reset();
-    }
-    this.app.edit = false;
-    this.inputDisabled();
-  }
-  /** 添加一条数据 */
-  add(data = datainit) {
-    // console.log(this.formData);
-    this.formData = data;
-    this.sf.refreshSchema();
-    this.app.edit = true;
-    this.inputDisabled();
-  }
-  /** 更改数据 */
-  update() {
-    this.app.edit = true;
-    this.inputDisabled();
-  }
   /** 删除数据 */
   delete() {
-  }
-  /** 表单控件状态 */
-  inputDisabled() {
-    // 获取所有input
-    // const input = document.getElementsByTagName('input');
-    // const holesDom = document.getElementsByTagName('nz-select')[0];
-    // for (let index = 0; index < input.length; index++) {
-    //   this.app.disabled(input[index]);
-    // }
-    // this.app.disabled(holesDom);
-    this.app.tagDisabled('input');
-    this.app.tagDisabled('nz-select');
   }
 }
